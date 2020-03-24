@@ -9,7 +9,7 @@ GAME FUNCTION:
 
 let min = 1,
   max = 10,
-  winningNum = 2,
+  winningNum = getRandomNum(min, max),
   guessesLeft = 3;
 
 // UI Elements
@@ -23,6 +23,14 @@ const game = document.querySelector("#game"),
 // Assign UI min and max
 minNum.textContent = min;
 maxNum.textContent = max;
+
+// Play again - 'mousedown' used (instead of 'click') to give us a chance to click the button and reload the page.
+game.addEventListener("mousedown", function(e) {
+  if (e.target.className === "play-again") {
+    window.location.reload();
+  } else {
+  }
+});
 
 // Listen for guess
 guessBtn.addEventListener("click", function() {
@@ -81,6 +89,23 @@ function gameOver(won, msg) {
 
   // Set message
   setMessage(msg);
+
+  // Play Again?
+  guessBtn.value = "PLAY AGAIN";
+  guessBtn.className = "play-again";
+}
+
+/*
+  Math.random() * 10 -> returns number between 0 and 9
+  (max - min + 1) -> returns numbers between 0 and 9
+  (max - min + 1) + min) -> add our minimum value; now we get numbers between 1 and 10;
+
+*/
+// Get Winning Number
+function getRandomNum(min, max) {
+  const winningNum = Math.floor(Math.random() * (max - min + 1) + min);
+  console.log(winningNum);
+  return winningNum;
 }
 
 // Set message
