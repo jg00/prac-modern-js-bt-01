@@ -32,7 +32,48 @@ easyHTTP.prototype.get = function(url, callback) {
 };
 
 // POST
+easyHTTP.prototype.post = function(url, data, callback) {
+  this.http.open("POST", url, true);
+
+  this.http.setRequestHeader("content-type", "application/json");
+
+  this.http.onload = function() {
+    // Don't really need to check the status but kept here for reference. 201 - success with resource
+    if (this.http.status === 201) {
+      callback(null, this.http.responseText); // returns new post
+    } else {
+      console.log("Error", this.http.status);
+    }
+  }.bind(this);
+
+  this.http.send(JSON.stringify(data));
+};
 
 // PUT
+easyHTTP.prototype.put = function(url, data, callback) {
+  this.http.open("PUT", url, true);
 
-// DELETE
+  this.http.setRequestHeader("content-type", "application/json");
+
+  this.http.onload = function() {
+    callback(null, this.http.responseText); // return updated post
+  }.bind(this);
+
+  this.http.send(JSON.stringify(data));
+};
+
+// DELETE - similar to GET
+easyHTTP.prototype.delete = function(url, callback) {
+  this.http.open("DELETE", url, true);
+
+  this.http.onload = function() {
+    if (this.http.status === 200) {
+      // callback(null, this.http.responseText) // Response after delete is just an empty object
+      callback(null, "Post Deleted");
+    } else {
+      callback("Error", this.http.status);
+    }
+  }.bind(this);
+
+  this.http.send();
+};
