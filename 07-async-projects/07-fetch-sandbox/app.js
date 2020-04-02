@@ -73,11 +73,9 @@ function getExternal() {
     .then(function(data) {
       console.log(data);
       let output = "";
-      data.forEach(
-        function(item) {
-          output += `<li>${item.login} <img style="width:100px;display:block" src="${item.avatar_url}"></img></li>`;
-        }.bind(this)
-      );
+      data.forEach(function(item) {
+        output += `<li>${item.login} <img style="width:100px;display:block" src="${item.avatar_url}"></img></li>`;
+      });
 
       document.getElementById("output").innerHTML = output;
     })
