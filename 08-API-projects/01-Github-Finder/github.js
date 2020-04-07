@@ -7,9 +7,21 @@ class Github {
   }
 
   async getUser(user) {
-    const profileResponse = await fetch(
-      `https://api.github.com/users/${user}?client_id=${this.client_id}&client_secret=${this.client_secret}`
+    let url = new URL(`https://api.github.com/users/${user}`);
+    let params = {
+      client_id: btgithubfinder_client_id,
+      client_secret: btgithubfinder_client_secret,
+    };
+    Object.keys(params).forEach((key) =>
+      url.searchParams.append(key, params[key])
     );
+
+    const profileResponse = await fetch(url);
+
+    // GitHub deprecating API authentication through query parameters
+    // const profileResponse = await fetch(
+    //   `https://api.github.com/users/${user}?client_id="${this.client_id}"&client_secret="${this.client_secret}"`
+    // );
 
     const profile = await profileResponse.json();
 

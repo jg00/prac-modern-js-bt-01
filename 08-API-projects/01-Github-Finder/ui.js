@@ -3,9 +3,8 @@ class UI {
     this.profile = document.getElementById("profile");
   }
 
+  // Display profile in UI
   showProfile(user) {
-    console.log("Blah", user);
-
     // Display profile
     this.profile.innerHTML = `
       <div class="card card-body mb-3">
@@ -33,5 +32,43 @@ class UI {
       <h3 class="page-heading mb-3">Latest Repos</h3>
       <div id="repos"></div>
     `;
+  }
+
+  // Show alert message
+  showAlert(message, className) {
+    // Clear any remaining alerts
+    this.clearAlert();
+
+    // Create div
+    const div = document.createElement("div");
+    // Add classes
+    div.className = className;
+    // Add text
+    div.appendChild(document.createTextNode(message));
+    // Get parent
+    const container = document.querySelector(".searchContainer");
+    // Get search box
+    const search = document.querySelector(".search");
+    // Insert alert
+    container.insertBefore(div, search);
+
+    // Timeout after 3 seconds if
+    setTimeout(() => {
+      this.clearAlert();
+    }, 3000);
+  }
+
+  // Clear alert message (removed multiple error div messages)
+  clearAlert() {
+    const currentAlert = document.querySelector(".alert");
+    // console.log("is it here", currentAlert);
+
+    // Check if there is a currentAlert element else we will get an error - "Cannot read property 'remove' of null"
+    if (currentAlert) currentAlert.remove();
+  }
+
+  // Clear profile
+  clearProfile() {
+    this.profile.innerHTML = "";
   }
 }
