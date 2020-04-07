@@ -1,8 +1,7 @@
 // Instantiate Github
-const github = new Github(
-  btgithubfinder_client_id,
-  btgithubfinder_client_secret
-);
+const github = new Github();
+// Instantiate UI
+const ui = new UI();
 
 // Search input
 const searchUser = document.getElementById("searchUser");
@@ -20,7 +19,8 @@ searchUser.addEventListener("keyup", (e) => {
         console.log("HERE", data.profile.message);
       } else {
         // Show profile (via ui.js)
-        console.log("THERE", data.profile);
+        // console.log("THERE", data.profile);
+        ui.showProfile(data.profile);
       }
     });
   } else {
