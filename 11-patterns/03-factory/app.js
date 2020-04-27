@@ -1,4 +1,4 @@
-// Factory - produces objects
+// Factory - produce and return instance objects
 
 // Ex 1
 function MemberFactory() {
