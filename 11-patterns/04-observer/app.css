@@ -1,0 +1,11 @@
+body {
+  font-family: sans-serif;
+}
+
+.container {
+  display: grid;
+  grid-row-gap: 0.25rem;
+  width: 15rem;
+  margin: 0 auto;
+  text-align: center;
+}
