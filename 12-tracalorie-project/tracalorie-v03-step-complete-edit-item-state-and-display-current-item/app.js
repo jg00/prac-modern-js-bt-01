@@ -219,7 +219,7 @@ const App = (function (ItemCtrl, UICtrl) {
     // Edit icon click event - Use event delegation
     document
       .querySelector(UISelectors.itemList)
-      .addEventListener("click", itemUpdateSubmit);
+      .addEventListener("click", itemEditClick);
   };
 
   // Add item submit (event handler)
@@ -247,8 +247,8 @@ const App = (function (ItemCtrl, UICtrl) {
     e.preventDefault();
   };
 
-  // Update item submit (event handler)
-  const itemUpdateSubmit = function (e) {
+  // Click edit item (event handler)
+  const itemEditClick = function (e) {
     if (e.target.classList.contains("edit-item")) {
       // Get list item id (item-0, item-1..)
       const listId = e.target.parentElement.parentElement.id;
