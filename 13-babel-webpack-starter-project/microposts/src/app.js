@@ -1,7 +1,7 @@
 /*
   Utilizes JSONPlaceholder - Fake Online REST API for Testing and Prototyping
-    npm install json-server --save (initial setup)
-    Create db.json (initial setup)
+  npm install json-server --save (initial setup)
+  Create db.json (initial setup)
     > npm run json:server (custom script)
 
   For our app:
@@ -16,6 +16,12 @@ document.addEventListener("DOMContentLoaded", getPosts);
 
 // Listen for submit post
 document.querySelector(".post-submit").addEventListener("click", submitPost);
+
+// Listen for remove post
+document.querySelector("#posts").addEventListener("click", deletePost);
+
+// Listen for edit state
+document.querySelector("#posts").addEventListener("click", enableEdit);
 
 // Get posts
 function getPosts() {
@@ -46,4 +52,29 @@ function submitPost() {
       ui.clearFields();
     })
     .catch((err) => console.log(err));
+}
+
+function deletePost(e) {
+  e.preventDefault();
+
+  if (e.target.parentElement.classList.contains("delete")) {
+    const id = e.target.parentElement.dataset.id;
+    if (confirm("Are you sure")) {
+      http
+        .delete(`http://localhost:3000/posts/${id}`)
+        .then((data) => {
+          ui.showAlert("Post removed", "alert alert-success");
+          getPosts();
+        })
+        .catch((err) => console.log(err));
+    }
+  }
+}
+
+function enableEdit(e) {
+  e.preventDefault();
+
+  if (e.target.parentElement.classList.contains("edit")) {
+    console.log("here", e.target);
+  }
 }
